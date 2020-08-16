@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-const ListComponent = (props) =>  {
+const TodoItem = (props) =>  {
   return (
     <li style={{'listStyleType': 'none'}}> 
       <button onClick={props.itemUpdate} className={'todoBtn'}>X</button> 
@@ -11,4 +11,4 @@ const ListComponent = (props) =>  {
 }
 
 //always needs to be [export default _]
-export default ListComponent
+export default TodoItem

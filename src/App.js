@@ -1,6 +1,6 @@
 import React, {Component} from 'react'; // without component you need to use React.Component
 import './App.css';
-import ListComponent from './listComponent';
+import TodoItem from './listComponent';
 
 // TO DO FOR CLASS
 // Create state for your app.js with isClicked: false in it
@@ -12,7 +12,7 @@ import ListComponent from './listComponent';
 // Now .map() over todos and show each item in the DOM. REMEMBER to give the callback function in .map() an index and provide that to each of the elements as index={index}
 // Create a button on each of the elements that uses this and when clicked removes/deletes the item from todos: []
 
-class App extends Component {
+class TodoList extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -65,23 +65,30 @@ itemUpdate = (index) => () => {
 render() {
   //console.log("***this is state***", this.state.items);
   return (
-        <div className="App">
-          <header className="App-header">
-            <h1>todos</h1>
-              <form>
-                {/* this lets us hold the value for targeting later */}
-                <input id="textEntry" value={this.state.textEntry} onChange={this.inputUpdate} placeholder="Enter task"/> 
-                <button type='button' onClick={this.todoSubmit} style={{textTransform: 'capitalize'}}>{`${this.state.btnValue || 'False'}`}</button>
-              </form>
-              <ul>
-                {this.state.items.map((item, index) => {
-                  return <ListComponent item={item} itemUpdate={this.itemUpdate(index)} key={index} />
-                })}
-              </ul>
-          </header>
-        </div>
-      );
+    <div className="App">
+      <header className="App-header">
+        <h1>todos</h1>
+          <form>
+            {/* this lets us hold the value for targeting later */}
+            <input id="textEntry" 
+              value={this.state.textEntry} 
+              onChange={this.inputUpdate} 
+              placeholder="Enter task"
+            /> 
+            <button type='button' 
+              onClick={this.todoSubmit} 
+              style={{textTransform: 'capitalize'}}>{`${this.state.btnValue || 'False'}`}
+            </button>
+          </form>
+          <ul>
+            {this.state.items.map((item, index) => {
+              return <TodoItem item={item} itemUpdate={this.itemUpdate(index)} key={index} />
+            })}
+          </ul>
+      </header>
+    </div>
+    );
   }
 }
 
-export default App;
+export default TodoList;
