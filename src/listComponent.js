@@ -3,8 +3,9 @@ import React from 'react';
 
 const TodoItem = (props) =>  {
   return (
-    <li style={{'listStyleType': 'none'}}> 
-      <button onClick={props.itemUpdate} className={'todoBtn'}>X</button> 
+    <li style={{'listStyleType': 'none'}} className={'todoItem'}> 
+      <button onClick={props.itemUpdate} className={'todoBtn'}></button> 
+      <button onClick={props.itemUpdate} className={'todoBtnDone'}>&#10004;</button> 
       {props.item}
     </li>
   )

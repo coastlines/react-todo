@@ -3,6 +3,7 @@ import './App.css';
 import TodoItem from './listComponent';
 
 // TO DO FOR CLASS
+// Example: http://todomvc.com/examples/react/#/
 // Create state for your app.js with isClicked: false in it
 // Create a button and add an onClick handler that changes the value of isClicked
 // Create an input field and then a function that changes the state of text: '' to the e.target.value onChange of the input field
@@ -68,23 +69,24 @@ render() {
     <div className="App">
       <header className="App-header">
         <h1>todos</h1>
-          <form>
-            {/* this lets us hold the value for targeting later */}
-            <input id="textEntry" 
-              value={this.state.textEntry} 
-              onChange={this.inputUpdate} 
-              placeholder="Enter task"
-            /> 
-            <button type='button' 
-              onClick={this.todoSubmit} 
-              style={{textTransform: 'capitalize'}}>{`${this.state.btnValue || 'False'}`}
-            </button>
-          </form>
-          <ul>
-            {this.state.items.map((item, index) => {
-              return <TodoItem item={item} itemUpdate={this.itemUpdate(index)} key={index} />
-            })}
-          </ul>
+        <div className="todoContainer">
+            <form className="todoForm" onSubmit={this.todoSubmit} >
+              {/* this lets us hold the value for targeting later */}
+              <input id="textEntry" 
+                value={this.state.textEntry} 
+                onChange={this.inputUpdate} 
+                placeholder="Enter task"
+              /> 
+              <button type='submit'
+                style={{textTransform: 'capitalize'}}>{`${this.state.btnValue || 'False'}`}
+              </button>
+            </form>
+            <ul>
+              {this.state.items.map((item, index) => {
+                return <TodoItem item={item} itemUpdate={this.itemUpdate(index)} key={index} />
+              })}
+            </ul>
+        </div>
       </header>
     </div>
     );
