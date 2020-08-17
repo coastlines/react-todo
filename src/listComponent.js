@@ -4,7 +4,7 @@ import React from 'react';
 const TodoItem = (props) =>  {
   return (
     <li style={{'listStyleType': 'none'}} className={'todoItem'}> 
-      <button 
+      <button
         onClick={index => props.itemUpdate(index)}
         className={props.btnClass} 
       >
