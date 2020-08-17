@@ -59,10 +59,9 @@ toggleTodo = (index) => () => {
     this.setState({
       complete: [...this.state.complete, this.state.items[index]],
       isCompleteClass: !this.state.isCompleteClass,
-      btnClass: !this.state.isCompleteClass ? 'todoBtnDone' : 'todoBtn',
-      btnText: <span>&#10004;</span>,
-      listClass: 'todoItemDone'
     })
+
+
 }
 
 deleteTodo = (index) => () => {
@@ -78,24 +77,6 @@ deleteTodo = (index) => () => {
   
     console.log(this.state.isCompleteClass, index)
 }
-
-// handleItemUpdate = (index) => () => {
-//   let list = [...this.state.items]
-//   list.splice(index, 1)
-//   this.setState({
-//     items: list
-//   })
-// }
-
-// // refactor to use filter
-// itemUpdate = (index) => () => {
-//   const filteredItems = this.state.items.filter(item =>
-//     item[index] !== index);
-//   this.setState({
-//     items: this.filteredItems
-//   })
-// }
-
 
 render() {
   //console.log("***this is state***", this.state.items);
