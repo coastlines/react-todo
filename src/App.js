@@ -59,9 +59,10 @@ toggleTodo = (index) => () => {
     this.setState({
       complete: [...this.state.complete, this.state.items[index]],
       isCompleteClass: !this.state.isCompleteClass,
+      btnClass: !this.state.isCompleteClass ? 'todoBtnDone' : 'todoBtn',
+      btnText: <span>&#10004;</span>,
+      listClass: !this.state.isCompleteClass ? 'todoItemDone' : '',
     })
-
-
 }
 
 deleteTodo = (index) => () => {
