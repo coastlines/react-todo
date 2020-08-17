@@ -21,6 +21,7 @@ class TodoList extends Component {
       btnValue: '',
       items: [],
       complete: [],
+      deleted: [],
       isCompleteClass: false,
       btnClass: 'todoBtn',
       btnText: '',
@@ -52,38 +53,31 @@ handleTodoSubmit = (event) => {
   }
 }
 
-toggleMenu = (index) => () => {
-  this.setState({
-    isCompleteClass: !this.state.isCompleteClass[index],
-    btnClass: 'todoBtn' ? 'todoBtnDone' : 'todoBtn',
-    btnText: <text>&#10004;</text>,
-    listClass: 'todoItemDone'
-  })
+toggleTodo = (index) => () => {
+  // const setClass = this.state.items.filter(i => i == this.state.items[index])
 
-  // let filteredItems = this.state.items.filter(item, index =>
-  //       this.index == index);
-
-
-      // this.setState({
-      //   items: this.filteredItems
-      // })
-
-
-  console.log(this.state.isCompleteClass, index)
+    this.setState({
+      complete: [...this.state.complete, this.state.items[index]],
+      isCompleteClass: !this.state.isCompleteClass,
+      btnClass: !this.state.isCompleteClass ? 'todoBtnDone' : 'todoBtn',
+      btnText: <span>&#10004;</span>,
+      listClass: 'todoItemDone'
+    })
 }
 
-// handleItemUpdate = (index) => () => {
-  // this.setState({
-  //   isCompleteClass: !this.state.isCompleteClass
-  // })
-  // console.log(this.state.isCompleteClass)
-
-  // let list = [...this.state.items]
-  // list.splice(index, 1)
-  // this.setState({
-  //   items: list
-  // })
-// }
+deleteTodo = (index) => () => {
+  const filteredList = this.state.items.filter(i => i !== this.state.items[index])
+  // this.state.complete.filter(index => this.state.items[index])
+  // this.state.complete.push(this.state.items[index])
+  console.log('state is: ' + this.state.items[index])
+   
+      this.setState({
+        items: filteredList,
+        deleted: [...this.state.deleted, this.state.items[index]],
+      })
+  
+    console.log(this.state.isCompleteClass, index)
+}
 
 // handleItemUpdate = (index) => () => {
 //   let list = [...this.state.items]
@@ -129,7 +123,8 @@ render() {
                         btnClass={this.state.btnClass}
                         btnText={this.state.btnText}
                         // itemUpdate={this.handleItemUpdate(index)} 
-                        itemUpdate={this.toggleMenu(index)}
+                        itemUpdate={this.toggleTodo(index)}
+                        itemDelete={this.deleteTodo(index)}
                         key={index} 
                         />
               })}

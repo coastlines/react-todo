@@ -5,12 +5,18 @@ const TodoItem = (props) =>  {
   return (
     <li style={{'listStyleType': 'none'}} className={'todoItem'}> 
       <button 
-        onClick={props.itemUpdate} 
-        className={props.btnClass}>
+        onClick={index => props.itemUpdate(index)}
+        className={props.btnClass} 
+      >
         {props.btnText}
       </button> 
       {/* <button onClick={props.itemUpdate} className={'todoBtnDone'}></button>  */}
       <span className={props.listClass}>{props.item}</span>
+      <button id={'deleteBtn'}
+        onClick={index => props.itemDelete(index)}
+      >
+        &#10005;
+      </button> 
     </li>
   )
 }
