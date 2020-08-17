@@ -17,41 +17,81 @@ class TodoList extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      textEntry: '',
+      pendingInput: '',
       btnValue: '',
       items: [],
-      complete: []
+      complete: [],
+      isCompleteClass: false,
+      btnClass: 'todoBtn',
+      btnText: '',
+      listClass: '',
     };
 
-    this.todoSubmit = this.todoSubmit.bind(this)
+    this.handleTodoSubmit = this.handleTodoSubmit.bind(this)
   }
 
-
-inputUpdate = event => {
+handleTodoInput = event => {
   // this sets the value
   this.setState({
-    textEntry: event.target.value
+    pendingInput: event.target.value
   })
 }
 
-todoSubmit = (event) => {
+handleTodoSubmit = (event) => {
   event.preventDefault()
 
-  this.setState({
-    // spread operator takes whatever is in the array and adds/updates
-    items: [...this.state.items, this.state.textEntry],
-    btnValue: !this.state.btnValue,
-    textEntry: ''
-  })
+  if (this.state.pendingInput !== '') {
+    this.setState({
+      // spread operator takes whatever is in the array and adds/updates
+      items: [...this.state.items, this.state.pendingInput],
+      btnValue: !this.state.btnValue,
+      pendingInput: ''
+    })
+  } else {
+    alert('uh oh, try again')
+  }
 }
 
-itemUpdate = (index) => () => {
-  let list = [...this.state.items]
-  list.splice(index, 1)
+toggleMenu = (index) => () => {
   this.setState({
-    items: list
+    isCompleteClass: !this.state.isCompleteClass[index],
+    btnClass: 'todoBtn' ? 'todoBtnDone' : 'todoBtn',
+    btnText: <text>&#10004;</text>,
+    listClass: 'todoItemDone'
   })
+
+  // let filteredItems = this.state.items.filter(item, index =>
+  //       this.index == index);
+
+
+      // this.setState({
+      //   items: this.filteredItems
+      // })
+
+
+  console.log(this.state.isCompleteClass, index)
 }
+
+// handleItemUpdate = (index) => () => {
+  // this.setState({
+  //   isCompleteClass: !this.state.isCompleteClass
+  // })
+  // console.log(this.state.isCompleteClass)
+
+  // let list = [...this.state.items]
+  // list.splice(index, 1)
+  // this.setState({
+  //   items: list
+  // })
+// }
+
+// handleItemUpdate = (index) => () => {
+//   let list = [...this.state.items]
+//   list.splice(index, 1)
+//   this.setState({
+//     items: list
+//   })
+// }
 
 // // refactor to use filter
 // itemUpdate = (index) => () => {
@@ -70,11 +110,11 @@ render() {
       <header className="App-header">
         <h1>todos</h1>
         <div className="todoContainer">
-            <form className="todoForm" onSubmit={this.todoSubmit} >
+            <form className="todoForm" onSubmit={this.handleTodoSubmit} >
               {/* this lets us hold the value for targeting later */}
-              <input id="textEntry" 
-                value={this.state.textEntry} 
-                onChange={this.inputUpdate} 
+              <input id="pendingInput" 
+                value={this.state.pendingInput} 
+                onChange={this.handleTodoInput} 
                 placeholder="Enter task"
               /> 
               <button type='submit'
@@ -83,7 +123,15 @@ render() {
             </form>
             <ul>
               {this.state.items.map((item, index) => {
-                return <TodoItem item={item} itemUpdate={this.itemUpdate(index)} key={index} />
+                return <TodoItem 
+                        item={item}
+                        listClass={this.state.listClass}
+                        btnClass={this.state.btnClass}
+                        btnText={this.state.btnText}
+                        // itemUpdate={this.handleItemUpdate(index)} 
+                        itemUpdate={this.toggleMenu(index)}
+                        key={index} 
+                        />
               })}
             </ul>
         </div>
